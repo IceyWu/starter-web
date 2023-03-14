@@ -5,7 +5,7 @@ vue3-template-js <b>vite + v3 +js</b><sup><em>(speed)</em></sup><br>
 <br>
 
 <p align='center'>
-<a href="https://vue3-template-js.netlify.app">Live Demo</a>
+<a href="https://starter-web.netlify.app/">Live Demo</a>
 </p>
 
 <br>
