@@ -1,4 +1,5 @@
 <script setup>
+import {isDark,toggleDark} from "@/composables"
 onMounted(() => {})
 </script>
 
@@ -7,7 +8,7 @@ onMounted(() => {})
     :class="isDark ? 'header-dark' : 'header-normal'"
     class="h-[55px] w-full flex items-center box-border px-[40px]"
   >
-    <div v-motion-roll-bottom font-bold text="2xl">Wow🌟!</div>
+    <div  font-bold text="2xl">Wow🌟!</div>
     <div flex-1></div>
     <div class="flex h-full items-center gap-5">
       <div
