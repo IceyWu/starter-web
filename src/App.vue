@@ -1,10 +1,12 @@
 <template>
-  <router-view/>
+  <div id="main-con">
+    <router-view />
+  </div>
 </template>
 
 <style lang="less">
-body {
-  font-size: 16px;
+.main-con {
+  font-size: 58px;
   background-color: #f8f8f8;
   -webkit-font-smoothing: antialiased;
 }

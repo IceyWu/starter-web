@@ -18,8 +18,7 @@
     "vant": "^4.4.0",
     "vue": "^3.3.4",
     "vue-router": "^4.2.1",
-    "vuex": "^4.1.0",
-    "yarn": "^1.22.19"
+    "vuex": "^4.1.0"
   },
   "devDependencies": {
     "@iconify-json/carbon": "^1.1.16",
