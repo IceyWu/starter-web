@@ -1,34 +1,43 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
-// import HomeView from '../views/HomeView.vue'
-import Layout from '@/layout/layout.vue'
+import { createRouter, createWebHashHistory } from 'vue-router';
 
 const routes = [
+  // {
+  //   name: 'notFound',
+  //   path: '/:path(.*)+',
+  //   redirect: {
+  //     name: 'goods',
+  //   },
+  // },
   {
+    name: '/',
     path: '/',
-    name: 'base',
-    redirect: '/index',
-    component: Layout,
+    component: () => import('@/views/index'),
     meta: {
-      title: '首页',
+      title: '主页',
     },
-    children: [
-      {
-        path: '/index',
-        name: 'Index',
-        component: () =>
-          import(/* webpackChunkName: "Index" */ '@/views/index.vue'),
-        meta: {
-          title: '首页',
-          keepAlive: true,
-        },
-      },
-    ],
   },
-]
+  {
+    name: 'user',
+    path: '/user',
+    component: () => import('@/views/user'),
+    meta: {
+      title: '会员中心',
+    },
+  },
+ 
+];
 
 const router = createRouter({
+  routes,
   history: createWebHashHistory(),
-  routes
-})
+});
 
-export default router
+router.beforeEach((to, from, next) => {
+  const title = to.meta && to.meta.title;
+  if (title) {
+    document.title = title;
+  }
+  next();
+});
+
+export { router };

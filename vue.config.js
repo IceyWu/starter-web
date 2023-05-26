@@ -6,8 +6,9 @@ const AutoImport = require("unplugin-auto-import/webpack");
 // unplugin-vue-components
 const Components = require("unplugin-vue-components/webpack");
 // elemnt-plus
-const { ElementPlusResolver } = require("unplugin-vue-components/resolvers");
+const { VantResolver } = require("unplugin-vue-components/resolvers");
 module.exports = defineConfig({
+  publicPath: './',
   transpileDependencies: true,
   configureWebpack: {
     plugins: [
@@ -21,13 +22,13 @@ module.exports = defineConfig({
 
         resolvers: [
           /* ... */
-          ElementPlusResolver(),
+          
         ],
         dirs: ['./src/composables'],
         dts: "./auto-imports.d.ts",
       }),
       Components({
-        resolvers: [ElementPlusResolver()],
+        resolvers: [VantResolver()],
       }),
       UnoCSS({}),
     ],
