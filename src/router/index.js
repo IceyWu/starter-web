@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from 'vue-router';
+import { createRouter, createWebHashHistory } from "vue-router";
 
 const routes = [
   // {
@@ -9,27 +9,32 @@ const routes = [
   //   },
   // },
   {
-    name: '/',
-    path: '/',
-    component: () => import('@/views/index'),
+    name: "/",
+    path: "/",
+    component: () => import("@/views/index"),
     meta: {
-      title: '主页',
+      title: "主页",
     },
   },
   {
-    name: 'user',
-    path: '/user',
-    component: () => import('@/views/user'),
+    name: "user",
+    path: "/user",
+    component: () => import("@/views/user"),
     meta: {
-      title: '会员中心',
+      title: "会员中心",
     },
   },
- 
 ];
 
 const router = createRouter({
   routes,
   history: createWebHashHistory(),
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition && to.meta.keepAlive) {
+      return savedPosition;
+    }
+    return { left: 0, top: 0 };
+  },
 });
 
 router.beforeEach((to, from, next) => {
