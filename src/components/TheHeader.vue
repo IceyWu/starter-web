@@ -31,18 +31,5 @@ onMounted(() => {})
 </template>
 
 <style lang="less" scoped>
-.header-normal {
-  background-image: radial-gradient(transparent 1px, #fff 1px);
 
-  background-size: 4px 4px;
-  backdrop-filter: saturate(50%) blur(4px);
-  border-bottom: 1px solid #dcdfe6;
-}
-.header-dark {
-  background-image: radial-gradient(transparent 1px, #141414 1px);
-  background-size: 4px 4px;
-  backdrop-filter: saturate(50%) blur(4px);
-
-  border-bottom: 1px solid #4c4d4f;
-}
 </style>

@@ -1,20 +1,21 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-
+import Layout from "@/layout/layout.vue";
 const routes = [
-  // {
-  //   name: 'notFound',
-  //   path: '/:path(.*)+',
-  //   redirect: {
-  //     name: 'goods',
-  //   },
-  // },
   {
-    name: "/",
     path: "/",
-    component: () => import("@/views/index"),
-    meta: {
-      title: "主页",
-    },
+    component: Layout,
+    redirect: "/index",
+    children: [
+      {
+        name: "index",
+        path: "/index",
+        component: () =>
+          import(/* webpackChunkName: "index" */ "@/views/index"),
+        meta: {
+          title: "主页",
+        },
+      },
+    ],
   },
   {
     name: "user",

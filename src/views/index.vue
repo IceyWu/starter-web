@@ -29,18 +29,9 @@ const postTestData = async () => {
 </script>
 
 <template>
-  <div class="h-screen w-full gap-5">
-    <van-tabs v-model:active="active">
-      <van-tab title="标签 1">
-        <div class="test">
-          <van-button @click="getTestData" type="primary">get请求</van-button>
-          <van-button @click="postTestData" type="primary">post请求</van-button>
-        </div>
-      </van-tab>
-      <van-tab title="标签 2">内容 2</van-tab>
-      <van-tab title="标签 3">内容 3</van-tab>
-      <van-tab title="标签 4">内容 4</van-tab>
-    </van-tabs>
+  <div class="h-full w-full flex items-center justify-center gap-5">
+    <van-button @click="getTestData" type="primary">get请求</van-button>
+    <van-button @click="postTestData" type="primary">post请求</van-button>
   </div>
 </template>
 
