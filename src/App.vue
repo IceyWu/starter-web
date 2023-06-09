@@ -13,8 +13,8 @@ const theme = computed(() => (isDark.value ? "dark" : "light"));
 
 <style lang="less">
 .main-con {
-  font-size: 58px;
-  background-color: #f8f8f8;
-  -webkit-font-smoothing: antialiased;
+  // font-size: 58px;
+  // background-color: #f8f8f8;
+  // -webkit-font-smoothing: antialiased;
 }
 </style>
