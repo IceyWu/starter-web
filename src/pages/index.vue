@@ -48,8 +48,11 @@ const postTestData = async () => {
 };
 // login
 const loginFunc = async () => {
-  const params = {};
-  const { code, msg, result } = ({} = await apiPost(params));
+  const params = {
+    mobile: "18882076569",
+    password: "123456",
+  };
+  const { code, msg, result } = ({} = await userStore.handLogin(params));
   if (code === 0) {
     console.log("post api test成功", result);
   } else {

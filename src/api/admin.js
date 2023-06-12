@@ -35,3 +35,14 @@ export const getLogin = (data) => {
     }
   );
 };
+// 登录
+export const refreshTokenApi = (data) => {
+  return http.request(
+    "post",
+    "/refreshToken",
+    { data },
+    {
+      isNeedToken: false, // 是否需要token
+    }
+  );
+};

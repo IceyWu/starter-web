@@ -3,6 +3,7 @@ import { apiServer } from "./domain.js";
 import NProgress from "../progress";
 import { setToken, getToken, formatToken } from "~/utils/auth";
 import { ElMessage } from "element-plus";
+import { useUserStore } from "~/store/user";
 
 const defaultConfig = {
   // baseURL: VITE_PROXY_DOMAIN_REAL,
@@ -101,13 +102,29 @@ class PureHttp {
               const token = tokenRoleName
                 ? getToken(tokenRoleName)
                 : getToken();
-              const { access_token, expires_in } = token || {};
+              const { access_token, refresh_token, expires_in } = token || {};
               if (access_token) {
                 const now = new Date().getTime();
                 const expired = parseInt("" + expires_in) - now <= 0;
                 if (expired) {
-                  console.log("token过期");
-                  resolve(config);
+                  // console.log("token过期");
+                  // resolve(config);
+                  if (!PureHttp.isRefreshing) {
+                    PureHttp.isRefreshing = true;
+                    // token过期刷新
+                    useUserStore()
+                      .handRefreshToken({ refreshToken: refresh_token })
+                      .then((res) => {
+                        const token = res.data.accessToken;
+                        config.headers["Authorization"] = formatToken(token);
+                        PureHttp.requests.forEach((cb) => cb(token));
+                        PureHttp.requests = [];
+                      })
+                      .finally(() => {
+                        PureHttp.isRefreshing = false;
+                      });
+                  }
+                  resolve(PureHttp.retryOriginalRequest(config));
                 } else {
                   // console.log('token未过期', access_token)
                   config.headers.Authorization = formatToken(access_token);
