@@ -1,5 +1,6 @@
 <script setup>
 import { apiGet, apiPost, getLogin } from "~/api/admin";
+import { tagFindAll } from "~/api/tag";
 import { storeToRefs } from "pinia";
 import { useUserStore } from "~/store/user";
 import { ElMessage } from "element-plus";
@@ -28,9 +29,9 @@ onMounted(() => {});
 // get api test
 const getTestData = async () => {
   const params = {};
-  const { code, msg, result } = ({} = await apiGet(params));
+  const { code, msg, result } = ({} = await tagFindAll(params));
 
-  if (code === 0) {
+  if (code === 200) {
     console.log("get api test成功", result);
   } else {
     console.log("get api test失败", msg);
@@ -53,7 +54,7 @@ const loginFunc = async () => {
     password: "123456",
   };
   const { code, msg, result } = ({} = await userStore.handLogin(params));
-  if (code === 0) {
+  if (code === 200) {
     console.log("post api test成功", result);
   } else {
     console.log("post api test失败", msg);
@@ -76,7 +77,7 @@ const loginFunc = async () => {
     <el-button type="primary" @click="() => userStore.setCount()"
       >add value
     </el-button>
-    <el-button type="primary" @click="getTestFunc()">get Data </el-button>
+    <el-button type="primary" @click="getTestData()">get Data </el-button>
     <el-button type="primary" @click="loginFunc()">Login </el-button>
   </div>
 </template>

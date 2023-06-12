@@ -63,6 +63,16 @@ class PureHttp {
   // 业务异常code名单
   static errorCodes = [401];
 
+  /** 重连原始请求 */
+  static retryOriginalRequest(config) {
+    return new Promise((resolve) => {
+      PureHttp.requests.push((token) => {
+        config.headers["Authorization"] = formatToken(token);
+        resolve(config);
+      });
+    });
+  }
+
   // 请求拦截器
   static httpInterceptorsRequest() {
     PureHttp.axiosInstance.interceptors.request.use(
@@ -102,20 +112,19 @@ class PureHttp {
               const token = tokenRoleName
                 ? getToken(tokenRoleName)
                 : getToken();
-              const { access_token, refresh_token, expires_in } = token || {};
+              const { access_token, refresh_token, expires } = token || {};
               if (access_token) {
                 const now = new Date().getTime();
-                const expired = parseInt("" + expires_in) - now <= 0;
+                const expired = parseInt("" + expires) - now <= 0;
                 if (expired) {
-                  // console.log("token过期");
-                  // resolve(config);
                   if (!PureHttp.isRefreshing) {
                     PureHttp.isRefreshing = true;
                     // token过期刷新
                     useUserStore()
                       .handRefreshToken({ refreshToken: refresh_token })
                       .then((res) => {
-                        const token = res.data.accessToken;
+                        const { access_token } = res.result || {};
+                        const token = access_token;
                         config.headers["Authorization"] = formatToken(token);
                         PureHttp.requests.forEach((cb) => cb(token));
                         PureHttp.requests = [];

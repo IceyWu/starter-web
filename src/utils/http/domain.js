@@ -6,12 +6,12 @@
 const domainLsit = [
   // 测试服
   {
-    baseServer: "http://localhost:3000/api", //开发服务 0
+    baseServer: "/api", //开发服务 0
     otherServer: "http://x.x.x.x/section", //开发服务器 1
   },
   // 正式服
   {
-    baseServer: "http://localhost:3000/api", //开发服务 0
+    baseServer: "/api", //开发服务 0
     otherServer: "http://x.x.x.x/section", //开发服务器 1
   },
 ];

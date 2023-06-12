@@ -16,9 +16,13 @@ export const useUserStore = defineStore(
         getLogin(data)
           .then((data) => {
             console.log("登录", data);
-            if (data) {
-              setToken(data.data);
+            const { code, msg, result } = data;
+            if (code === 200 && result) {
+              const { token } = result || {};
+              setToken(token);
               resolve(data);
+            } else {
+              console.log("登录失败", msg);
             }
           })
           .catch((error) => {
@@ -33,9 +37,12 @@ export const useUserStore = defineStore(
         refreshTokenApi(data)
           .then((data) => {
             console.log("刷新token", data);
-            if (data) {
-              setToken(data.data);
+            const { code, msg, result } = data;
+            if (code === 200 && result) {
+              setToken(result);
               resolve(data);
+            } else {
+              console.log("刷新token失败", msg);
             }
           })
           .catch((error) => {

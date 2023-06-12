@@ -1,27 +1,27 @@
-import path from 'path'
-import { defineConfig } from 'vite'
-import Vue from '@vitejs/plugin-vue'
-import Pages from 'vite-plugin-pages'
-import Components from 'unplugin-vue-components/vite'
-import AutoImport from 'unplugin-auto-import/vite'
-import Unocss from 'unocss/vite'
-import VueMacros from 'unplugin-vue-macros/vite'
-import { viteMockServe } from 'vite-plugin-mock'
-import legacy from '@vitejs/plugin-legacy'
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import path from "path";
+import { defineConfig } from "vite";
+import Vue from "@vitejs/plugin-vue";
+import Pages from "vite-plugin-pages";
+import Components from "unplugin-vue-components/vite";
+import AutoImport from "unplugin-auto-import/vite";
+import Unocss from "unocss/vite";
+import VueMacros from "unplugin-vue-macros/vite";
+import { viteMockServe } from "vite-plugin-mock";
+import legacy from "@vitejs/plugin-legacy";
+import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: './',
+  base: "./",
   resolve: {
     alias: {
-      '~/': `${path.resolve(__dirname, 'src')}/`,
-      '@build': `${path.resolve(__dirname, 'build')}/`,
+      "~/": `${path.resolve(__dirname, "src")}/`,
+      "@build": `${path.resolve(__dirname, "build")}/`,
     },
   },
   plugins: [
     legacy({
-      targets: ['defaults', 'not IE 11'],
+      targets: ["defaults", "not IE 11"],
       // legacyPolyfills: false
     }),
     VueMacros({
@@ -37,21 +37,17 @@ export default defineConfig({
 
     // https://github.com/antfu/unplugin-auto-import
     AutoImport({
-      imports: ['vue', 'vue/macros', '@vueuse/core'],
+      imports: ["vue", "vue/macros", "@vueuse/core"],
       dts: true,
-      dirs: ['./src/composables'],
+      dirs: ["./src/composables"],
       vueTemplate: true,
-      resolvers: [
-        ElementPlusResolver(),
-      ],
+      resolvers: [ElementPlusResolver()],
     }),
 
     // https://github.com/antfu/vite-plugin-components
     Components({
       dts: true,
-      resolvers: [
-        ElementPlusResolver(),
-      ],
+      resolvers: [ElementPlusResolver()],
     }),
 
     // https://github.com/antfu/unocss
@@ -59,9 +55,17 @@ export default defineConfig({
     Unocss(),
   ],
   server: {
-    host: '0.0.0.0',
+    host: "0.0.0.0",
     port: 9527,
     // strictPort: true,
     // open: false
+    // 本地跨域代理 https://cn.vitejs.dev/config/server-options.html#server-proxy
+    proxy: {
+      "^/api/.*": {
+        target: "http://localhost:3000/api",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ""),
+      },
+    },
   },
-})
+});
