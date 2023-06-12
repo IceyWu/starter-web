@@ -1,26 +1,37 @@
-import { http } from '~/utils/http'
+import { http } from "~/utils/http";
 
-export const getTest = (params) => {
+export const apiGet = (params) => {
   return http.request(
-    'get',
-    '/app/activity/findAll',
+    "get",
+    "/app/activity/findAll",
     { params },
     {
       isNeedFullRes: false, // 是否需要返回完整的响应对象
       isShowLoading: true, // 是否显示loading
       isNeedToken: false, // 是否需要token
     }
-  )
-}
-export const getTest2 = (params) => {
+  );
+};
+export const apiPost = (data) => {
   return http.request(
-    'get',
-    '/back/galleryType/findAll',
-    { params },
+    "post",
+    "/back/galleryType/findAll",
+    { data },
     {
       isNeedFullRes: false, // 是否需要返回完整的响应对象
       isShowLoading: true, // 是否显示loading
       isNeedToken: true, // 是否需要token
     }
-  )
-}
+  );
+};
+// 登录
+export const getLogin = (data) => {
+  return http.request(
+    "post",
+    "/auth/login",
+    { data },
+    {
+      isNeedToken: false, // 是否需要token
+    }
+  );
+};
