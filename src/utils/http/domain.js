@@ -6,17 +6,17 @@
 const domainLsit = [
   // 测试服
   {
-    apiServer: 'http://x.x.x.x:12345', //开发服务 0
-    otherServer: 'http://x.x.x.x/section', //开发服务器 1
+    apiServer: "http://x.x.x.x:12345", //开发服务 0
+    otherServer: "http://x.x.x.x/section", //开发服务器 1
   },
   // 正式服
   {
-    apiServer: 'http://x.x.x.x:12345', //开发服务 0
-    otherServer: 'http://x.x.x.x/section', //开发服务器 1
+    apiServer: "http://x.x.x.x:12345", //开发服务 0
+    otherServer: "http://x.x.x.x/section", //开发服务器 1
   },
 ];
 
-// vue
+// vite
 const ServerNumber = process.env.VUE_APP_SERVER_ID
   ? process.env.VUE_APP_SERVER_ID
   : 0;
@@ -26,6 +26,5 @@ export const baseUrl = domainLsit[ServerNumber];
 
 // api接口
 export const apiServer = baseUrl;
-
 
 export default baseUrl;
