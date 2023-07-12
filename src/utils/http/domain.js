@@ -16,7 +16,7 @@ const domainLsit = [
   },
 ];
 
-// vite
+// vite1
 const ServerNumber = process.env.VUE_APP_SERVER_ID
   ? process.env.VUE_APP_SERVER_ID
   : 0;
